@@ -1,20 +1,21 @@
 {
-  "name": "recess-web",
-  "version": "0.0.0",
-  "description": "ERROR: No README.md file found!",
+  "name": "hvost",
+  "version": "0.1.0",
+  "description": "A simple single user RESTful RSS reader.",
   "main": "index.js",
   "scripts": {
     "test": "mocha -R spec -r should test/"
   },
   "repository": "",
-  "author": "",
-  "license": "BSD",
+  "author": "Chris Bannister <c.bannister'at'gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "q": "~0.9.6",
     "request": "~2.21.0",
     "mysql": "~2.0.0-alpha8",
     "xml2js": "~0.2.8",
-    "redis": "~0.8.4"
+    "redis": "~0.8.4",
+    "express": "~3.3.4"
   },
   "devDependencies": {
     "should": "~1.2.2"
