@@ -1,3 +1,2 @@
-*.sublime*
-node_modules
-/web/build
+/*.sublime*
+/node_modules
