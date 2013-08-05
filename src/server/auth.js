@@ -3,7 +3,7 @@ var Q = require("Q")
 var redisClient = require("redis").createClient()
 var redis = require("../lib/redisQ")(redisClient)
 
-var authLib = require("../lib/auth")
+var authLib = require("../lib/hashing")
 var crypto = require("crypto")
 
 var config = {
