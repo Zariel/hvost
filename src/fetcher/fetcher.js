@@ -162,7 +162,7 @@ var hashItem = function(item) {
 }
 
 var contains = function(list, x) {
-	for(var i in list) {
+	for(var i = 0; i < list.length; i++) {
 		if(list[i] === x) {
 			return true
 		}
