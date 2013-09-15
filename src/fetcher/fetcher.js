@@ -71,7 +71,7 @@ var log = function(msg) {
 		msg = JSON.stringify(msg, null, 2)
 	}
 
-	console.log("[" + new Date() + "][" + cluster.worker.id + "] " + msg)
+	console.log("[" + new Date().toLocaleString() + "][" + cluster.worker.id + "] " + msg)
 }
 
 // Logs an error from a Q
