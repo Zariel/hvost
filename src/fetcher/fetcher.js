@@ -227,28 +227,34 @@ var getCachedItems = function(channel) {
 	return redisQ.sget("fetched.items." + channel)
 }
 
+var getItems = function(channelId, items) {
+	return getItemsToInsert(channelId, items).then(function(items) {
+		return redisQ.del('fetched.items.' + channelId).then(function() {
+			return items
+		})
+	})
+}
+
 var insertFeed = function(channel) {
 	return function(feed) {
 		var rss = feed.rss.channel[0]
-		return getItemsToInsert(channel.channel_id, rss.item).then(function(items) {
-			return redisQ.del("fetched.items." + channel.channel_id).then(function() {
-				return Q.allSettled(items.map(function(item) {
-					var o = {
-						channel_id: channel.channel_id,
-						title: item.title[0],
-						link: item.link[0],
-						description: item.description ? item.description[0] : "<no content>",
-						guid: getGUID(item.guid[0]),
-						hash: hash(item.link[0]),
-						published: parseRssDate(item.pubDate[0])
-					}
+		return getItems(channel.channel_id, rss.item).then(function(items) {
+			return Q.allSettled(items.map(function(item) {
+				var o = {
+					channel_id: channel.channel_id,
+					title: item.title[0],
+					link: item.link[0],
+					description: item.description ? item.description[0] : "<no content>",
+					guid: getGUID(item.guid[0]),
+					hash: hash(item.link[0]),
+					published: parseRssDate(item.pubDate[0])
+				}
 
-					redisQ.sadd("fetched.items." + channel.channel_id, o.hash).catch(logErr)
-					return db.query("INSERT INTO items SET ?", o).then(function(res) {
-						log(channel.title + " => " + o.title)
-					})
-				}))
-			})
+				redisQ.sadd("fetched.items." + channel.channel_id, o.hash).catch(logErr)
+				return db.query("INSERT INTO items SET ?", o).then(function(res) {
+					log((channel.title || "undefined") + " => " + (o.title || "undefined"))
+				})
+			}))
 		})
 
 		// Q.allSettled(promises).then(function(result) {
