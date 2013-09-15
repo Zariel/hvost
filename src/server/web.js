@@ -71,7 +71,7 @@ var server = function(db) {
 		var passw = req.body.password
 
 		if(name === undefined || passw === undefined) {
-			return res.send(400)
+			return res.send(400, 'expected credentials in format: ' + JSON.stringify({username: 'name', password: 'password'}) + ' got ' + JSON.stringify(req.body))
 		}
 
 		exWrap(res, auth.login(name, passw).then(function(key) {
