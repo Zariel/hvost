@@ -257,14 +257,6 @@ var insertFeed = function(channel) {
 				})
 			}))
 		})
-
-		// Q.allSettled(promises).then(function(result) {
-		// 	if(result.state === 'fulfilled') {
-		// 		// console.log("Inserted all values")
-		// 	} else {
-		// 		console.log("INSERT ERROR = " + result.reason)
-		// 	}
-		// })
 	}
 }
 
