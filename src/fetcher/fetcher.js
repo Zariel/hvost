@@ -216,7 +216,8 @@ var getGUID = function(guid) {
 
 
 var getItemsToInsert = function(channel, items) {
-	return redisQ.smembers("fetched.items." + channel).then(function(stored) {
+	var key = "fetched.items." + channel
+	return redisQ.smembers(key).then(function(stored) {
 		return items.filter(function(x) {
 			return !contains(stored, hashItem(x))
 		}).reverse()
