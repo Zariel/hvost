@@ -25,7 +25,7 @@ var createApiKey = function(user, passw) {
 	hash.update(user)
 	hash.update(passw)
 
-	return hash.digest("hex").slice(0, 32).toString("hex")
+	return hash.digest("hex").toString("hex")
 }
 
 var updateTTL = function() {
