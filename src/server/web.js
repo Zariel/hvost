@@ -11,6 +11,7 @@ var exWrap = function(res, promise) {
 		return res.send(500)
 	})
 }
+
 var cleanItem = function(item) {
 	item.id = item.item_id
 
@@ -100,7 +101,7 @@ var server = function(db) {
 			return res.send(400, 'Error')
 		}
 
-		exWrap(feeds.add(db, url).then(function() {
+		exWrap(res, feeds.add(db, url).then(function() {
 			res.send(200)
 		}))
 	})
